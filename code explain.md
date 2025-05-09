@@ -15,7 +15,6 @@ from torch.nn.functional import softmax
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 ````
 
-### ✅ شرح:
 
 * `pandas` و `numpy`: دول أهم مكتبتين للتعامل مع البيانات (جداول وأرقام).
 * `matplotlib.pyplot` و `seaborn`: دول بنستخدمهم علشان نرسم جرافيك وشارتات توضح النتائج.
@@ -39,7 +38,6 @@ print(f"Using device: {device}")
 start_time = time.time()
 ```
 
-### ✅ شرح:
 
 * بنحمّل حاجة من NLTK اسمها `punkt` علشان تساعدنا في تقطيع الجُمل والكلام.
 * بنخلّي tqdm تشتغل مع pandas علشان تبينلنا شريط التقدم.
@@ -67,7 +65,6 @@ except ValueError as e:
         raise ValueError("Required columns 'Score' or 'Text' missing.")
 ```
 
-### ✅ شرح:
 
 * بنحاول نفتح ملف المراجعات (تعليقات الناس على منتجات أمازون).
 * لو الملف مش موجود، بيظهر رسالة خطأ.
@@ -90,7 +87,6 @@ rows_after = len(df)
 print(f"Removed {initial_rows - rows_after} rows; Current shape: {df.shape}")
 ```
 
-### ✅ شرح:
 
 * بنشيل أي نص فاضي ونعوّضه بكلام فاضي "".
 * بنحول الـ "Score" لأرقام ونعوّض القيم اللي مش مفهومه بـ 0.
@@ -108,7 +104,6 @@ model = AutoModelForSequenceClassification.from_pretrained(model_name).to(device
 print("BERT model and tokenizer loaded.")
 ```
 
-### ✅ شرح:
 
 * بنحدد اسم الموديل اللي هنستخدمه (BERT متدرب على تعليقات).
 * بنحمل الـ tokenizer (بيحول الكلام لأرقام).
@@ -123,7 +118,6 @@ def get_bert_sentiment(text, max_length=512):
     ...
 ```
 
-### ✅ شرح:
 
 * دي دالة بتحلل أي نص وتديك:
 
@@ -142,7 +136,6 @@ bert_df = pd.json_normalize(bert_scores)
 df = pd.concat([df, bert_df], axis=1)
 ```
 
-### ✅ شرح:
 
 * بنطبق دالة المشاعر على كل تعليق.
 * بنحوّل النتايج لأعمدة منفصلة.
@@ -158,7 +151,6 @@ def check_alignment(row):
 df['Alignment_BERT'] = df.progress_apply(check_alignment, axis=1)
 ```
 
-### ✅ شرح:
 
 * بنقارن بين رأي الشخص في النجوم (Score) وتحليل النص (BERT).
 * لو الاتنين إيجابي → Agreement (Pos-Pos)
@@ -176,7 +168,6 @@ sns.countplot(data=df, y='Alignment_BERT', order=counts.index)
 plt.show()
 ```
 
-### ✅ شرح:
 
 * بنعد كل نوع توافق حصل.
 * وبنرسم جرافيك يوضحهم.
@@ -190,7 +181,6 @@ neg_examples = df[df['Alignment_BERT'] == 'Disagreement (PosScore-NegText)']
 pos_examples = df[df['Alignment_BERT'] == 'Disagreement (NegScore-PosText)']
 ```
 
-### ✅ شرح:
 
 * بنطبع أمثلة لناس ادّوا تقييم عالي بس كلامهم سلبي (والعكس).
 
@@ -204,7 +194,6 @@ end_time = time.time()
 print(f"--- Script End ---\nElapsed time: {end_time - start_time:.2f} seconds")
 ```
 
-### ✅ شرح:
 
 * بنحفظ البيانات كلها في ملف جديد.
 * وبنحسب الوقت اللي الكود أخده من الأول للآخر.
